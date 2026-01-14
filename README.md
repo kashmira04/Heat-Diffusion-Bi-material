@@ -1,7 +1,3 @@
-To create a professional project document, you can copy the content below into a new Google Doc. This structure follows the academic standards expected by German universities for computational projects.
-
----
-
 # Project Documentation: 2D Heat Diffusion in Bi-Materials
 
 ## 1. Project Overview
@@ -64,7 +60,3 @@ The resulting heatmap illustrates a sharp change in the temperature gradient at 
 3. **Execution:** Run the script to generate the `Heat_Diffusion_BiMaterial.pdf` report and the on-screen heatmap.
 
 ---
-
-### Pro-Tip for your Application:
-
-When you save this doc, name it **"Numerical_Simulation_Report_YourName.pdf"**. This professional naming convention is highly appreciated in German academic and professional environments.
