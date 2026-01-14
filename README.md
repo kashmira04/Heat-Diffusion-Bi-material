@@ -1,62 +1,51 @@
-# Project Documentation: 2D Heat Diffusion in Bi-Materials
+![Heat Diffusion Simulation](heat_diffusion.gif)
+# 2D Heat Diffusion Simulation in Bi-Materials
 
-## 1. Project Overview
+## Project Overview
 
-This project implements a numerical simulation of transient heat transfer through a composite material plate (Copper and Steel). The simulation utilizes the **Finite Difference Method (FDM)** to solve the heat equation in a 2D spatial domain.
+This project simulates the transient heat transfer through a composite material consisting of **Copper** and **Steel**. Using the **Finite Difference Method (FDM)** and **NumPy**, the simulation models how heat propagates from a constant source on one end across a material interface into an insulated boundary.
 
-The primary goal is to demonstrate:
+This was developed to demonstrate proficiency in **Numerical Methods**, **Python Vectorization**, and **Computational Materials Science**.
 
-* Application of numerical methods to physical problems.
-* Efficient computation using **NumPy vectorization**.
-* Handling of diverse boundary conditions (Dirichlet and Neumann).
+## Physical Model
 
-## 2. Theoretical Background
-
-The simulation is governed by the 2D Heat Equation:
+The simulation solves the 2D Heat Equation:
 
 
-### Thermal Diffusivity ()
+Where ** (Thermal Diffusivity)** is defined as:
 
-Instead of using arbitrary constants, this simulation uses the physical **Thermal Diffusivity** of real materials, defined as .
 
-| Material | Region | Diffusivity () | Characteristics |
-| --- | --- | --- | --- |
-| **Copper** | Left Half | 0.116 | High thermal conductivity; rapid heat spread. |
-| **Steel** | Right Half | 0.013 | Lower conductivity; acts as a thermal barrier. |
+### Material Properties Used:
 
-## 3. Implementation Methodology
+| Property | Copper (Left) | Steel (Right) |
+| --- | --- | --- |
+| **Thermal Diffusivity ()** | 0.116 | 0.013 |
+| **Role** | Heat Conductor | Thermal Barrier |
 
-### Numerical Solver: Vectorized Slicing
+## Boundary Conditions
 
-To ensure high performance, the code avoids Python `for` loops for spatial updates. Instead, it uses **NumPy array slicing** to calculate the 5-point stencil (Laplacian) across the entire grid simultaneously:
+To accurately model a real-world physical system, three types of boundary conditions were implemented:
 
-```python
-interior = plate[1:-1, 1:-1]
-up, down = plate[0:-2, 1:-1], plate[2:, 1:-1]
-left, right = plate[1:-1, 0:-2], plate[1:-1, 2:]
+1. **Dirichlet Boundary (Left Edge):** Constant heat source maintained at .
+2. **Neumann Boundary (Right Edge):** Perfect insulation (zero heat flux).
+3. **Insulated Edges (Top/Bottom):** Prevented vertical heat loss, ensuring a closed system.
 
-# Laplacian Update
-plate[1:-1, 1:-1] += alpha_map[1:-1, 1:-1] * (up + down + left + right - 4*interior)
+## Implementation Details
 
-```
+* **Vectorized Slicing:** Instead of using nested `for` loops, the Laplacian operator was calculated using NumPy slices (`1:-1`). This approach is  faster and reflects high-performance computing standards.
+* **Stability:** The time-stepping follows the Stability Criterion for explicit methods, ensuring .
 
-### Boundary Conditions
+## How to Run
 
-* **Dirichlet (Heater):** The left edge is fixed at a constant .
-* **Neumann (Insulation):** The top, bottom, and right edges are perfectly insulated (Zero Flux), achieved by equating edge pixels to their interior neighbors: `plate[:, -1] = plate[:, -2]`.
+1. Create a virtual environment: `python3 -m venv env`
+2. Activate environment: `source env/bin/activate`
+3. Install dependencies: `pip install numpy matplotlib`
+4. Run the simulation: `python3 simulate_heat.py`
 
-## 4. Visual Results and Analysis
+## Results
 
-The resulting heatmap illustrates a sharp change in the temperature gradient at the material interface ().
-
-1. **Copper Zone:** Shows a smooth, deep penetration of heat.
-2. **Steel Zone:** Shows a rapid drop in temperature, confirming its role as an insulator.
-3. **Steady State:** Over time, the system approaches a linear temperature profile, modified by the differing thermal resistances of the two materials.
-
-## 5. How to Run the Simulation
-
-1. **Environment:** Python 3.x with a Virtual Environment (`venv`).
-2. **Dependencies:** `pip install numpy matplotlib`.
-3. **Execution:** Run the script to generate the `Heat_Diffusion_BiMaterial.pdf` report and the on-screen heatmap.
+The simulation clearly illustrates the "bottleneck" effect at the material interface. While heat moves rapidly through the Copper section, the low diffusivity of the Steel section creates a significant thermal gradient, demonstrating the effectiveness of steel as a thermal insulator in composite structures.
 
 ---
+
+### Final Tip for Your Portfolio
