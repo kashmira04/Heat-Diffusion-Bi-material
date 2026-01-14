@@ -45,7 +45,16 @@ To accurately model a real-world physical system, three types of boundary condit
 ## Results
 
 The simulation clearly illustrates the "bottleneck" effect at the material interface. While heat moves rapidly through the Copper section, the low diffusivity of the Steel section creates a significant thermal gradient, demonstrating the effectiveness of steel as a thermal insulator in composite structures.
+The resulting heatmap illustrates a sharp change in the temperature gradient at the material interface ().
+
+1. **Copper Zone:** Shows a smooth, deep penetration of heat.
+2. **Steel Zone:** Shows a rapid drop in temperature, confirming its role as an insulator.
+3. **Steady State:** Over time, the system approaches a linear temperature profile, modified by the differing thermal resistances of the two materials.
+
+## 5. How to Run the Simulation
+
+1. **Environment:** Python 3.x with a Virtual Environment (`venv`).
+2. **Dependencies:** `pip install numpy matplotlib`.
+3. **Execution:** Run the script "python3 simulate_heat.py" to generate the `Heat_Diffusion_BiMaterial.pdf` report and the on-screen heatmap.
 
 ---
-
-### Final Tip for Your Portfolio
